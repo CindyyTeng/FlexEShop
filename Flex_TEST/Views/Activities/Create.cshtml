@@ -1,0 +1,86 @@
+﻿@model Flex_TEST.Models.Activities
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Activities</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ActivityName" class="control-label"></label>
+                <input asp-for="ActivityName" class="form-control" />
+                <span asp-validation-for="ActivityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fk_ActivityCategoryId" class="control-label"></label>
+                <select asp-for="fk_ActivityCategoryId" class ="form-control" asp-items="ViewBag.fk_ActivityCategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityDate" class="control-label"></label>
+                <input asp-for="ActivityDate" class="form-control" />
+                <span asp-validation-for="ActivityDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fk_SpeakerId" class="control-label"></label>
+                <select asp-for="fk_SpeakerId" class ="form-control" asp-items="ViewBag.fk_SpeakerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityPlace" class="control-label"></label>
+                <input asp-for="ActivityPlace" class="form-control" />
+                <span asp-validation-for="ActivityPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityImage" class="control-label"></label>
+                <input asp-for="ActivityImage" class="form-control" />
+                <span asp-validation-for="ActivityImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityBookStartTime" class="control-label"></label>
+                <input asp-for="ActivityBookStartTime" class="form-control" />
+                <span asp-validation-for="ActivityBookStartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityBookEndTime" class="control-label"></label>
+                <input asp-for="ActivityBookEndTime" class="form-control" />
+                <span asp-validation-for="ActivityBookEndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityAge" class="control-label"></label>
+                <input asp-for="ActivityAge" class="form-control" />
+                <span asp-validation-for="ActivityAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivitySalePrice" class="control-label"></label>
+                <input asp-for="ActivitySalePrice" class="form-control" />
+                <span asp-validation-for="ActivitySalePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityOriginalPrice" class="control-label"></label>
+                <input asp-for="ActivityOriginalPrice" class="form-control" />
+                <span asp-validation-for="ActivityOriginalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActivityDescription" class="control-label"></label>
+                <input asp-for="ActivityDescription" class="form-control" />
+                <span asp-validation-for="ActivityDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
