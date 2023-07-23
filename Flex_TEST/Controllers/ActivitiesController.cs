@@ -11,6 +11,9 @@ using System.Diagnostics;
 using Flex_TEST.Interface;
 using Flex_TEST.Infra.EFRepository;
 using Flex_TEST.Services;
+using Flex_TEST.Models.Dto;
+using Flex_TEST.Models.ViewModels;
+using Flex_TEST.Infra;
 
 namespace Flex_TEST.Controllers
 {
@@ -120,20 +123,25 @@ namespace Flex_TEST.Controllers
         // GET: Activities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Activities == null)
+            IActivityRepository repo = new ActivityRepository(_context);
+            ActivityServices service = new ActivityServices(repo, _context);
+
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var activities = await _context.Activities.FindAsync(id);
-            if (activities == null)
+            var activity = await service.GetOneAsync(id);
+            if (activity == null)
             {
                 return NotFound();
             }
-            ViewData["fk_ActivityCategoryId"] = new SelectList(_context.ActivityCategories, "ActivityCategoryId", "ActivityCategoryName", activities.fk_ActivityCategoryId);
-            ViewData["fk_ActivityStatusId"] = new SelectList(_context.ActivityStatuses, "ActivityStatusId", "ActivityStatusId", activities.fk_ActivityStatusId);
-            ViewData["fk_SpeakerId"] = new SelectList(_context.Speakers, "SpeakerId", "SpeakerName", activities.fk_SpeakerId);
-            return View(activities);
+            var activityVm = activity.ToEditVM();
+
+            ViewData["fk_ActivityCategoryId"] = new SelectList(_context.ActivityCategories, "ActivityCategoryId", "ActivityCategoryName", activityVm.fk_ActivityCategoryId);
+
+            ViewData["fk_SpeakerId"] = new SelectList(_context.Speakers, "SpeakerId", "SpeakerName", activityVm.fk_ActivityCategoryId);
+            return View(activityVm);
         }
 
         // POST: Activities/Edit/5
@@ -141,37 +149,60 @@ namespace Flex_TEST.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Activities activities)
+        public async Task<IActionResult> Edit(int id, ActivityEditVM vm)
         {
-            if (id != activities.ActivityId)
+            // 假設 vm.ActivityId 為 ActivityCategoryId 的值
+            ViewData["fk_ActivityCategoryId"] = new SelectList(_context.ActivityCategories, "ActivityCategoryId", "ActivityCategoryName", vm.fk_ActivityCategoryId);
+
+
+            ViewData["fk_SpeakerId"] = new SelectList(_context.Speakers, "SpeakerId", "SpeakerName", vm.fk_ActivityCategoryId);
+
+            IActivityRepository repo = new ActivityRepository(_context);
+            ActivityServices service = new ActivityServices(repo, _context);
+
+            if (id != vm.ActivityId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                ActivityEditDto dto = vm.ToEditDto();
+                Result result = await service.EditAsync(dto);
+
+                if (result.IsSuccess)
                 {
-                    _context.Update(activities);
-                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!ActivitiesExists(activities.ActivityId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return View(vm);
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["fk_ActivityCategoryId"] = new SelectList(_context.ActivityCategories, "ActivityCategoryId", "ActivityCategoryName", activities.fk_ActivityCategoryId);
-            ViewData["fk_ActivityStatusId"] = new SelectList(_context.ActivityStatuses, "ActivityStatusId", "ActivityStatusId", activities.fk_ActivityStatusId);
-            ViewData["fk_SpeakerId"] = new SelectList(_context.Speakers, "SpeakerId", "SpeakerName", activities.fk_SpeakerId);
-            return View(activities);
+            return View(vm);
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        service.Update(vm);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!ActivitiesExists(activities.ActivityId))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+          
+            //return View(activities);
         }
 
         // GET: Activities/Delete/5

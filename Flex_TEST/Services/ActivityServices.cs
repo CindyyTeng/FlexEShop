@@ -1,6 +1,7 @@
 ﻿using Flex_TEST.Interface;
 using Flex_TEST.Models;
 using Flex_TEST.Models.Dto;
+using Flex_TEST.Infra;
 
 namespace Flex_TEST.Services
 {
@@ -18,6 +19,17 @@ namespace Flex_TEST.Services
         public async Task<IEnumerable<ActivityIndexDto>> GetAllAsync()
         {
             return await _repo.GetAllAsync();
+        }
+
+        public async Task<ActivityEditDto?> GetOneAsync(int? id)
+        {
+            return await _repo.GetOneAsync(id);
+        }
+
+        public async Task<Result> EditAsync(ActivityEditDto dto)
+        {
+            await _repo.EditAsync(dto);
+            return Result.Success();
         }
     }
 }

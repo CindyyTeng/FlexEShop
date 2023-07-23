@@ -1,4 +1,4 @@
-﻿@model Flex_TEST.Models.Activities
+﻿@model Flex_TEST.Models.ViewModels.ActivityEditVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -73,11 +73,7 @@
                 <input asp-for="ActivityDescription" class="form-control" />
                 <span asp-validation-for="ActivityDescription" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="fk_ActivityStatusId" class="control-label"></label>
-                <select asp-for="fk_ActivityStatusId" class="form-control" asp-items="ViewBag.fk_ActivityStatusId"></select>
-                <span asp-validation-for="fk_ActivityStatusId" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

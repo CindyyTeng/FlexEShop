@@ -6,5 +6,9 @@ namespace Flex_TEST.Interface
     {
 
         Task<IEnumerable<ActivityIndexDto>> GetAllAsync();
+
+        Task<ActivityEditDto?> GetOneAsync(int? id);
+
+        Task EditAsync(ActivityEditDto dto);
     }
 }

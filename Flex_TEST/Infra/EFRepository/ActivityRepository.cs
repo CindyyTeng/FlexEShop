@@ -4,6 +4,7 @@ using Flex_TEST.Models.Dto;
 using Flex_TEST.Models.Exts;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Flex_TEST.Infra.EFRepository
 {
     public class ActivityRepository : IActivityRepository
@@ -14,6 +15,8 @@ namespace Flex_TEST.Infra.EFRepository
             _context = context;
         }
 
+    
+
         public async Task<IEnumerable<ActivityIndexDto>> GetAllAsync()
         {
             var activities = await _context.Activities
@@ -23,6 +26,28 @@ namespace Flex_TEST.Infra.EFRepository
                     .Include(c => c.fk_Speaker)
                     .ToListAsync();
             return activities.Select(a => a.ToIndexDto());
+        }
+
+        public async Task<ActivityEditDto?> GetOneAsync(int? id)
+        {
+            var activity = await _context.Activities.Include(a => a.fk_ActivityCategory).Include(b => b.fk_Speaker).FirstOrDefaultAsync(a => a.ActivityId == id);
+
+
+
+            if (activity == null)
+            {
+                return null;
+            }
+
+            return activity.ToEditDto();
+        }
+
+        public async Task EditAsync(ActivityEditDto dto)
+        {
+           
+            var activity = dto.ToEditEntity();
+            _context.Entry(activity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }
