@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Flex_TEST.Models.Activities>
+﻿@model IEnumerable<Flex_TEST.Models.ViewModels.ActivityIndexVM>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,17 +13,24 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ActivityId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ActivityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityCategoryName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ActivityDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ActivityPlace)
+                @Html.DisplayNameFor(model => model.SpeakerName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ActivityImage)
+                @Html.DisplayNameFor(model => model.ActivityPlace)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.ActivityBookStartTime)
             </th>
@@ -31,26 +38,9 @@
                 @Html.DisplayNameFor(model => model.ActivityBookEndTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ActivityAge)
+                @Html.DisplayNameFor(model => model.ActivityStatusDescription)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActivitySalePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActivityOriginalPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActivityDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fk_ActivityCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fk_ActivityStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fk_Speaker)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -58,17 +48,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                    @Html.DisplayFor(modelItem => item.ActivityId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ActivityName)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActivityCategoryName)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ActivityDate)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpeakerName)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ActivityPlace)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivityImage)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.ActivityBookStartTime)
             </td>
@@ -76,26 +73,9 @@
                 @Html.DisplayFor(modelItem => item.ActivityBookEndTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ActivityAge)
+                    @Html.DisplayFor(modelItem => item.ActivityStatusDescription)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivitySalePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivityOriginalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActivityDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fk_ActivityCategory.ActivityCategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fk_ActivityStatus.ActivityStatusDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fk_Speaker.SpeakerName)
-            </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ActivityId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ActivityId">Details</a> |

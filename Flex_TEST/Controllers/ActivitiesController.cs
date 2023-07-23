@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Flex_TEST.Models;
+using Flex_TEST.Models.Exts;
+using System.Diagnostics;
+using Flex_TEST.Interface;
+using Flex_TEST.Infra.EFRepository;
+using Flex_TEST.Services;
 
 namespace Flex_TEST.Controllers
 {
@@ -24,11 +29,22 @@ namespace Flex_TEST.Controllers
         // GET: Activities
         public async Task<IActionResult> Index()
         {
-            var indexInfo = await _context.Activities.Include(a => a.fk_ActivityCategory).Include(a=>a.fk_ActivityStatus).Include(a=>a.fk_Speaker).ToListAsync();
+            IActivityRepository repo = new ActivityRepository(_context);
+            ActivityServices service = new ActivityServices(repo, _context);
+
+            var indexInfo = await service.GetAllAsync();
+            var indexVM = indexInfo.Select(a => a.ToIndexVM());
+            //var indexInfo = await _context.Activities.Include(a => a.fk_ActivityCategory).Include(a=>a.fk_ActivityStatus).Include(a=>a.fk_Speaker).ToListAsync();
+            //var indexVM = indexInfo.Select(a=>a.ToIndexDto().ToIndexVM());
+
+            //Console.WriteLine(indexVM.GetType().FullName); // 輸出型別名稱
+            //Debug.WriteLine(indexVM.GetType().FullName);
+
+            //_context.Activities.Select(x => x.fk_ActivityCategory.ActivityCategoryName);
+            return View(indexVM);
 
 
-            _context.Activities.Select(x => x.fk_ActivityCategory.ActivityCategoryName);
-            return View(indexInfo);
+
         }
 
         // GET: Activities/Details/5

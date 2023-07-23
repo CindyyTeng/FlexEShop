@@ -2,8 +2,11 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using Flex_TEST.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+
+
 
 namespace Flex_TEST.Models
 {
@@ -72,8 +75,14 @@ namespace Flex_TEST.Models
         public virtual DbSet<pay_methods> pay_methods { get; set; }
         public virtual DbSet<pay_statuses> pay_statuses { get; set; }
 
+      
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
+
             modelBuilder.Entity<Activities>(entity =>
             {
                 entity.HasKey(e => e.ActivityId)
