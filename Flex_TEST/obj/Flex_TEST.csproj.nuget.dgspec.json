@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\FLEX_TEST\\Flex_TEST\\Flex_TEST.csproj": {}
+    "C:\\TEST Core MVC\\Flex_TEST\\Flex_TEST\\Flex_TEST.csproj": {}
   },
   "projects": {
-    "C:\\FLEX_TEST\\Flex_TEST\\Flex_TEST.csproj": {
+    "C:\\TEST Core MVC\\Flex_TEST\\Flex_TEST\\Flex_TEST.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\FLEX_TEST\\Flex_TEST\\Flex_TEST.csproj",
+        "projectUniqueName": "C:\\TEST Core MVC\\Flex_TEST\\Flex_TEST\\Flex_TEST.csproj",
         "projectName": "Flex_TEST",
-        "projectPath": "C:\\FLEX_TEST\\Flex_TEST\\Flex_TEST.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\FLEX_TEST\\Flex_TEST\\obj\\",
+        "projectPath": "C:\\TEST Core MVC\\Flex_TEST\\Flex_TEST\\Flex_TEST.csproj",
+        "packagesPath": "C:\\Users\\ispan\\.nuget\\packages\\",
+        "outputPath": "C:\\TEST Core MVC\\Flex_TEST\\Flex_TEST\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ispan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

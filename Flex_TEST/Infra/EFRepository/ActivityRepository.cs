@@ -44,9 +44,11 @@ namespace Flex_TEST.Infra.EFRepository
 
         public async Task EditAsync(ActivityEditDto dto)
         {
-           
-            var activity = dto.ToEditEntity();
-            _context.Entry(activity).State = EntityState.Modified;
+
+            var activity = _context.Activities.Find(dto.ActivityId);
+            
+            
+
             await _context.SaveChangesAsync();
         }
     }
